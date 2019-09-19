@@ -1,8 +1,8 @@
 {
-  "name": "@nebulario/microservices-blog-web",
+  "name": "@nebulario/microservice-blog-web",
   "version": "1.70.0-account-page-prod",
   "main": "index.js",
-  "repository": "git@github.com:vicjicaman/microservices-blog-web.git",
+  "repository": "git@github.com:vicjicaman/microservice-blog-web.git",
   "author": "Victor Jimenez <vic.jicama@gmail.com>",
   "license": "MIT",
   "scripts": {
