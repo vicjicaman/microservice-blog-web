@@ -1,6 +1,6 @@
 {
   "name": "@nebulario/microservice-blog-web",
-  "version": "1.70.2-blog-home-prod",
+  "version": "1.70.3-blog-home-prod",
   "main": "index.js",
   "repository": "git@github.com:vicjicaman/microservice-blog-web.git",
   "author": "Victor Jimenez <vic.jicama@gmail.com>",
