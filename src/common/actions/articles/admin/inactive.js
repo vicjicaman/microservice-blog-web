@@ -5,6 +5,7 @@ import { Alert } from "reactstrap";
 import Loading from "UI/loading";
 import * as ArticleAdminFragments from "Queries/articles/admin/fragments";
 import * as ArticleQueries from "Queries/articles";
+import * as ConfirmModal from "UI/confirm";
 
 const MUTATION = gql`
   mutation ArticleInactive($id: ID!) {
@@ -26,6 +27,8 @@ const MUTATION = gql`
 `;
 
 export default function({ id }) {
+  const confirmState = ConfirmModal.State(false);
+
   const [
     mutation,
     { loading: mutationLoading, error: mutationError }
@@ -40,30 +43,48 @@ export default function({ id }) {
       if (id === null) {
         window.location = "/auth";
       }
-      if (admin) {
-        onCompleted && onCompleted(admin.article.inactive);
-      }
+
     }
   });
 
   return (
-    <button
-      className="btn btn-sm btn-warning"
-      disabled={mutationLoading}
-      onClick={e => {
-        e.preventDefault();
-        mutation({
-          variables: {
-            id
-          }
-        });
-      }}
-    >
-      {mutationLoading ? (
-        <Loading />
-      ) : (
-        <i className="fa fa-exclamation"> Inactive</i>
+
+
+    <ConfirmModal.Component
+      state={confirmState}
+      trigger={({ open }) => (
+        <button
+          className="btn btn-sm btn-warning"
+          disabled={mutationLoading}
+          onClick={e => {
+            e.preventDefault();
+            open();
+          }}
+        >
+          {mutationLoading ? (
+            <Loading />
+          ) : (
+            <i className="fa fa-exclamation"> Inactive</i>
+          )}
+        </button>
       )}
-    </button>
+      body=""
+      confirm={({ close }) => (
+        <button
+          className="btn btn-warning"
+          onClick={e => {
+            e.preventDefault();
+            mutation({
+              variables: {
+                id
+              }
+            });
+            close();
+          }}
+        >
+          <i className="fa fa-exclamation"> Inactive</i>
+        </button>
+      )}
+    />
   );
 }
