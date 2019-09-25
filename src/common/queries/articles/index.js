@@ -1,5 +1,5 @@
 import { gql } from "apollo-boost";
-import * as ArticleFragments from 'Queries/articles/fragments'
+import * as ArticleFragments from "Queries/articles/fragments";
 
 export const List = gql`
   query ArticleList {
@@ -8,6 +8,21 @@ export const List = gql`
       username
       articles {
         list {
+          ...ArticleFragment
+        }
+      }
+    }
+  }
+  ${ArticleFragments.Article}
+`;
+
+export const Get = gql`
+  query ArticleList($url: String!) {
+    viewer {
+      id
+      username
+      articles {
+        get(url: $url) {
           ...ArticleFragment
         }
       }

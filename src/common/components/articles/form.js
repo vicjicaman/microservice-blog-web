@@ -12,7 +12,7 @@ const State = initial => {
     };
 
     if (name === "title") {
-      vals.url = value.replace(/\s+/g, "-").toLowerCase();
+      vals.url = value.replace(/\s+/g, "-").replace(/[^a-zA-Z0-9-_]/g, '').toLowerCase();
     }
 
     setFields(fields => ({

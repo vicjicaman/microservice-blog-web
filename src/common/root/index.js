@@ -16,7 +16,7 @@ export default ({ viewer }) => (
         component={props => <Admin {...props} viewer={viewer} />}
       />
       <Route
-        path={"/blog/:id"}
+        path={"/blog/:url"}
         component={props => <Entry {...props} viewer={viewer} />}
       />
     </Switch>

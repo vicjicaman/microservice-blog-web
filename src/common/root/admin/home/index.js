@@ -9,12 +9,14 @@ export default ({ history, viewer: { username } }) => (
   <div>
     <div className="row">
       <div className="col-12">
-        <Link className="btn btn-sm btn-primary" to={"/blog"}>
-          <i className="fa fa-list" /> Published list
-        </Link>{" "}
-        <Link className="btn btn-sm btn-primary" to={"/blog/admin/new"}>
-          <i className="fa fa-plus" /> New
-        </Link>
+        <span className="float-right">
+          <Link className="btn btn-sm btn-primary" to={"/blog"}>
+            <i className="fa fa-list" /> Published list
+          </Link>{" "}
+          <Link className="btn btn-sm btn-primary" to={"/blog/admin/new"}>
+            <i className="fa fa-plus" /> New
+          </Link>
+        </span>
       </div>
     </div>
     <div className="row">
