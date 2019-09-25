@@ -6,6 +6,11 @@ import * as ArticleQueries from "Queries/articles";
 export default ({ history, viewer: { username } }) => (
   <div>
     <div className="row">
+      <div className="col-12">
+        <Link to={"/blog/new"}>New</Link>
+      </div>
+    </div>
+    <div className="row">
       <Query query={ArticleQueries.List}>
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
@@ -13,12 +18,13 @@ export default ({ history, viewer: { username } }) => (
 
           const {
             viewer: {
-              article: { list }
+              articles: { list }
             }
           } = data;
 
           return (
             <div className="col-12">
+              List of articles
               <ul className="list-group list-group-flush">
                 {list.map(({ id, title }) => (
                   <li key={id} className="list-group-item">

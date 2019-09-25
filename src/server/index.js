@@ -7,6 +7,8 @@ import { render } from "./render";
 import App from "../common/App.js";
 import { reducers, watchers } from "../common/state";
 
+
+const RESOURCES_BASE_ROUTE = process.env["RESOURCES_BASE_ROUTE"];
 const BLOG_BASE_ROUTE_APP = process.env["BLOG_BASE_ROUTE_APP"];
 const BLOG_INTERNAL_URL_GRAPH = process.env["BLOG_INTERNAL_URL_GRAPH"];
 const BLOG_EXTERNAL_URL_GRAPH = process.env["BLOG_EXTERNAL_URL_GRAPH"];
@@ -14,18 +16,6 @@ const BLOG_INTERNAL_PORT_APP = process.env["BLOG_INTERNAL_PORT_APP"];
 
 const app = express();
 
-app.use(
-  BLOG_BASE_ROUTE_APP + "/jquery",
-  express.static("/app/node_modules/jquery/dist")
-);
-app.use(
-  BLOG_BASE_ROUTE_APP + "/bootstrap",
-  express.static("/app/node_modules/bootstrap/dist")
-);
-app.use(
-  BLOG_BASE_ROUTE_APP + "/font-awesome",
-  express.static("/app/node_modules/font-awesome")
-);
 app.use(BLOG_BASE_ROUTE_APP + "/app", express.static("dist/web"));
 
 app.get("/*", (req, res) => {
@@ -39,6 +29,7 @@ app.get("/*", (req, res) => {
       watchers,
       reducers,
       paths: {
+        resources: RESOURCES_BASE_ROUTE,
         base: BLOG_BASE_ROUTE_APP
       },
       urls: {

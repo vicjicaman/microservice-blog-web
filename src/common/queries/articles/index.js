@@ -6,12 +6,13 @@ export const List = gql`
     viewer {
       id
       username
-      article {
+      articles {
         list {
           id
           title
           abstract
           content
+          status
           created_at
           authorid
         }
