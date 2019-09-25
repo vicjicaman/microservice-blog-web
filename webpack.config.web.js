@@ -19,7 +19,8 @@ module.exports = {
       Root: path.resolve(__dirname, "src/common/root"),
       Actions: path.resolve(__dirname, "src/common/actions"),
       UI: path.resolve(__dirname, "src/common/ui"),
-      Queries: path.resolve(__dirname, "src/common/queries")
+      Queries: path.resolve(__dirname, "src/common/queries"),
+      Comps: path.resolve(__dirname, "src/common/components")
     },
     modules: [path.resolve(__dirname, "src"), "node_modules"],
     extensions: [".js", ".jsx", ".json"]

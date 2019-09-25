@@ -2,21 +2,14 @@ import React, { useState } from "react";
 import { Route, NavLink, Switch, Link } from "react-router-dom";
 import * as ArticleAdminActions from "Actions/articles/admin";
 import * as ArticleUI from "UI/articles";
+import * as ArticleForm from "Comps/articles/form";
 
 export default ({ history, viewer }) => {
-  const [fields, setFields] = useState({
+  const { fields, setFields, handleFieldChange } = ArticleForm.State({
     title: "",
     abstract: "",
     content: ""
   });
-
-  const handleFieldChange = event => {
-    event.persist();
-    setFields(fields => ({
-      ...fields,
-      [event.target.name]: event.target.value
-    }));
-  };
 
   const preview = {
     authorid: viewer.id,
@@ -30,39 +23,11 @@ export default ({ history, viewer }) => {
           <div className="card">
             <div className="card-header">Edit article</div>
             <div className="card-body">
-              <form>
-                <div className="form-group">
-                  <label htmlFor="title">Title</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="title"
-                    value={fields.title}
-                    onChange={handleFieldChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="abstract">Abstract</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="abstract"
-                    value={fields.abstract}
-                    onChange={handleFieldChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="content">Content</label>
-                  <textarea
-                    className="form-control"
-                    name="content"
-                    rows="15"
-                    value={fields.content}
-                    onChange={handleFieldChange}
-                  ></textarea>
-                </div>
-
-              </form>
+              <ArticleForm.Component
+                fields={fields}
+                setFields={setFields}
+                handleFieldChange={handleFieldChange}
+              />
             </div>
             <div className="card-footer">
               <div className="col-12">

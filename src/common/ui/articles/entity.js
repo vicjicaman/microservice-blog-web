@@ -2,7 +2,7 @@ import React from "react";
 
 export const Title = ({ title }) => <h3>{title}</h3>;
 
-export const Author = ({ authorid }) => <span>{authorid}</span>;
+export const Author = ({ authorid }) => <b>{authorid}</b>;
 
 export const Abstract = ({ abstract, children, right }) => (
   <p className="text-break">

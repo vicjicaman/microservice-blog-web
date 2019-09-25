@@ -33,7 +33,9 @@ export default ({ history, viewer: { username } }) => (
             <div className="col-12">
               <ul className="list-group list-group-flush">
                 {list.map(article => (
-                  <ArticleAdminUI.Item article={article} />
+                  <ArticleAdminUI.Item key={article.id} article={article}>
+                    <Link to={"/blog/admin/edit/" + article.id}>Edit</Link>
+                  </ArticleAdminUI.Item>
                 ))}
               </ul>
             </div>

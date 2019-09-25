@@ -12,7 +12,7 @@ const Description = ({ abstract, authorid, status }) => (
     abstract={abstract}
     right={
       <span className="small">
-        By: <Author authorid={authorid} />
+        By{' '}<Author authorid={authorid} />
       </span>
     }
   >
