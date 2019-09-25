@@ -752,9 +752,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@nebulario/microservice-layout@link:../microservice-layout":
-  version "0.0.0"
-  uid ""
+"@nebulario/microservice-layout@1.70.0-blog-home-prod":
+  version "1.70.0-blog-home-prod"
+  resolved "https://registry.yarnpkg.com/@nebulario/microservice-layout/-/microservice-layout-1.70.0-blog-home-prod.tgz#81908ac179d164c502134f74be84404eb7036d64"
+  integrity sha512-+TruksXKn3meraAwv1nVEgQW0b9kB1x0Gp4M13EJC7dbEFbtSiZrf55vJ9Hj3OpHLEaS2XbnyVuvWqpgRaycug==
 
 "@types/node@>=6":
   version "12.7.4"
