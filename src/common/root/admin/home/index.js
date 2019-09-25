@@ -6,38 +6,38 @@ import * as ArticleAdminUI from "UI/articles/admin";
 import * as ArticleAdminActions from "Actions/articles/admin";
 
 export default ({ history, viewer: { username } }) => (
-  <div>
-    <div className="row">
-      <div className="col-12">
-        <span className="float-right">
-          <Link className="btn btn-sm btn-primary" to={"/blog"}>
-            <i className="fa fa-list" /> Published list
-          </Link>{" "}
-          <Link className="btn btn-sm btn-primary" to={"/blog/admin/new"}>
-            <i className="fa fa-plus" /> New
-          </Link>
-        </span>
-      </div>
-    </div>
-    <div className="row">
-      <Query query={ArticleQueries.List}>
-        {({ loading, error, data }) => {
-          if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error: {error}</p>;
+  <Query query={ArticleQueries.List}>
+    {({ loading, error, data }) => {
+      if (loading) return <p>Loading...</p>;
+      if (error) return <p>Error: {error}</p>;
 
-          const {
-            viewer: {
-              articles: { admin }
-            }
-          } = data;
+      const {
+        viewer: {
+          articles: { admin }
+        }
+      } = data;
 
-          if (admin === null) {
-            return <span>No access</span>;
-          }
+      if (admin === null) {
+        return <span>No access</span>;
+      }
 
-          const { list } = admin;
+      const { list } = admin;
 
-          return (
+      return (
+        <div>
+          <div className="row">
+            <div className="col-12">
+              <span className="float-right">
+                <Link className="btn btn-sm btn-primary" to={"/blog"}>
+                  <i className="fa fa-list" /> Published list
+                </Link>{" "}
+                <Link className="btn btn-sm btn-primary" to={"/blog/admin/new"}>
+                  <i className="fa fa-plus" /> New
+                </Link>
+              </span>
+            </div>
+          </div>
+          <div className="row">
             <div className="col-12">
               <ul className="list-group list-group-flush">
                 {list.map(article => (
@@ -52,7 +52,8 @@ export default ({ history, viewer: { username } }) => (
                               to={"/blog/admin/edit/" + article.id}
                             >
                               <i className="fa fa-edit" /> Edit
-                            </Link>
+                            </Link>{" "}
+                            <ArticleAdminActions.Remove id={article.id} />
                           </React.Fragment>
                         )}
 
@@ -67,9 +68,9 @@ export default ({ history, viewer: { username } }) => (
                 ))}
               </ul>
             </div>
-          );
-        }}
-      </Query>
-    </div>
-  </div>
+          </div>
+        </div>
+      );
+    }}
+  </Query>
 );
