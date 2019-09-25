@@ -8,7 +8,8 @@ export default ({ history, viewer }) => {
   const { fields, setFields, handleFieldChange } = ArticleForm.State({
     title: "",
     abstract: "",
-    content: ""
+    content: "",
+    url: ""
   });
 
   const preview = {
@@ -21,9 +22,12 @@ export default ({ history, viewer }) => {
       <div className="row">
         <div className="col-md-6">
           <div className="card">
-            <div className="card-header">Edit article</div>
+            <div className="card-header">
+              <i className="fa fa-plus" /> New article
+            </div>
             <div className="card-body">
               <ArticleForm.Component
+                mode="create"
                 fields={fields}
                 setFields={setFields}
                 handleFieldChange={handleFieldChange}
@@ -35,6 +39,7 @@ export default ({ history, viewer }) => {
                   title={fields.title}
                   abstract={fields.abstract}
                   content={fields.content}
+                  url={fields.url}
                   onCompleted={() => history.goBack()}
                 />{" "}
                 <button

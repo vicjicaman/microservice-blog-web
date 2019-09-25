@@ -6,7 +6,7 @@ import Loading from "UI/loading";
 import * as ArticleAdminFragments from 'Queries/articles/admin/fragments'
 
 const CREATE = gql`
-  mutation ArticleCreate($input: ArticleInput!) {
+  mutation ArticleCreate($input: ArticleCreateInput!) {
     viewer {
       id
       username
@@ -22,7 +22,7 @@ const CREATE = gql`
   ${ArticleAdminFragments.Article}
 `;
 
-export default function({ title, abstract, content, onCompleted }) {
+export default function({ url, title, abstract, content, onCompleted }) {
   const [
     create,
     { loading: mutationLoading, error: mutationError }
@@ -51,6 +51,7 @@ export default function({ title, abstract, content, onCompleted }) {
         create({
           variables: {
             input: {
+              url,
               title,
               abstract,
               content

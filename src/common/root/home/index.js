@@ -8,7 +8,15 @@ export default ({ history, viewer: { username } }) => (
   <div>
     <div className="row">
       <div className="col-12">
-        <Link to={"/blog/admin"}>admin</Link>
+        <span className="d-block">
+          {username === "vicjicama" && (
+            <span className="float-right">
+              <Link className="btn btn-sm btn-primary" to={"/blog/admin"}>
+                <i className="fa fa-lock" /> Admin
+              </Link>
+            </span>
+          )}
+        </span>
       </div>
     </div>
     <div className="row">

@@ -5,16 +5,26 @@ const State = initial => {
 
   const handleFieldChange = event => {
     event.persist();
+    const name = event.target.name;
+    const value = event.target.value;
+    const vals = {
+      [name]: value
+    };
+
+    if (name === "title") {
+      vals.url = value.replace(/\s+/g, "-").toLowerCase();
+    }
+
     setFields(fields => ({
       ...fields,
-      [event.target.name]: event.target.value
+      ...vals
     }));
   };
 
   return { fields, setFields, handleFieldChange };
 };
 
-const Component = ({ fields, setFields, handleFieldChange }) => {
+const Component = ({ mode, fields, setFields, handleFieldChange }) => {
   return (
     <form>
       <div className="form-group">
@@ -27,6 +37,22 @@ const Component = ({ fields, setFields, handleFieldChange }) => {
           onChange={handleFieldChange}
         />
       </div>
+
+      <div className="form-group">
+        <label htmlFor="url">Url</label>
+        {mode === "create" ? (
+          <input
+            type="text"
+            className="form-control"
+            name="url"
+            value={fields.url}
+            onChange={handleFieldChange}
+          />
+        ) : (
+          <span className="text-muted"><b>{' '}{fields.url}</b></span>
+        )}
+      </div>
+
       <div className="form-group">
         <label htmlFor="abstract">Abstract</label>
         <input

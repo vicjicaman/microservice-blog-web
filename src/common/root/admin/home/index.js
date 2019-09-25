@@ -3,12 +3,18 @@ import { Route, NavLink, Switch, Link } from "react-router-dom";
 import { Query } from "react-apollo";
 import * as ArticleQueries from "Queries/articles/admin";
 import * as ArticleAdminUI from "UI/articles/admin";
+import * as ArticleAdminActions from "Actions/articles/admin";
 
 export default ({ history, viewer: { username } }) => (
   <div>
     <div className="row">
       <div className="col-12">
-        <Link to={"/blog/admin/new"}>New</Link>
+        <Link className="btn btn-sm btn-primary" to={"/blog"}>
+          <i className="fa fa-list" /> Published list
+        </Link>{" "}
+        <Link className="btn btn-sm btn-primary" to={"/blog/admin/new"}>
+          <i className="fa fa-plus" /> New
+        </Link>
       </div>
     </div>
     <div className="row">
@@ -34,7 +40,27 @@ export default ({ history, viewer: { username } }) => (
               <ul className="list-group list-group-flush">
                 {list.map(article => (
                   <ArticleAdminUI.Item key={article.id} article={article}>
-                    <Link to={"/blog/admin/edit/" + article.id}>Edit</Link>
+                    <span className="d-block">
+                      <span className="float-right">
+                        {article.status === "draft" && (
+                          <React.Fragment>
+                            <ArticleAdminActions.Publish id={article.id} />{" "}
+                            <Link
+                              className="btn btn-sm btn-primary"
+                              to={"/blog/admin/edit/" + article.id}
+                            >
+                              <i className="fa fa-edit" /> Edit
+                            </Link>
+                          </React.Fragment>
+                        )}
+
+                        {article.status === "active" && (
+                          <React.Fragment>
+                            <ArticleAdminActions.Inactive id={article.id} />
+                          </React.Fragment>
+                        )}
+                      </span>
+                    </span>
                   </ArticleAdminUI.Item>
                 ))}
               </ul>

@@ -22,10 +22,10 @@ const getArticleData = ({ loading, error, data }) => {
   }
 
   const {
-    get: { title, abstract, content }
+    get: { title, abstract, content, url }
   } = admin;
 
-  return { allowed: true, article: { title, abstract, content } };
+  return { allowed: true, article: { title, abstract, content, url } };
 };
 
 export default ({
@@ -62,7 +62,9 @@ export default ({
           <div className="row">
             <div className="col-md-6">
               <div className="card">
-                <div className="card-header">Edit article</div>
+                <div className="card-header">
+                  <i className="fa fa-edit" /> Edit article
+                </div>
                 <div className="card-body">
                   <ArticleForm.Component
                     fields={fields}

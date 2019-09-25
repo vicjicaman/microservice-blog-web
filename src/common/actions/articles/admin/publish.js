@@ -4,16 +4,17 @@ import { gql } from "apollo-boost";
 import { Alert } from "reactstrap";
 import Loading from "UI/loading";
 import * as ArticleAdminFragments from "Queries/articles/admin/fragments";
+import * as ArticleQueries from "Queries/articles";
 
 const MUTATION = gql`
-  mutation ArticleEdit($id: ID!, $input: ArticleEditInput!) {
+  mutation ArticlePublish($id: ID!) {
     viewer {
       id
       username
       articles {
         admin {
           article(id: $id) {
-            edit(input: $input) {
+            publish {
               ...ArticleAdminFragment
             }
           }
@@ -24,11 +25,12 @@ const MUTATION = gql`
   ${ArticleAdminFragments.Article}
 `;
 
-export default function({ id, title, abstract, content, onCompleted }) {
+export default function({ id }) {
   const [
-    edit,
+    mutation,
     { loading: mutationLoading, error: mutationError }
   ] = useMutation(MUTATION, {
+    refetchQueries: [{ query: ArticleQueries.List }],
     onCompleted: ({
       viewer: {
         id,
@@ -39,30 +41,25 @@ export default function({ id, title, abstract, content, onCompleted }) {
         window.location = "/auth";
       }
       if (admin) {
-        onCompleted && onCompleted(admin.article.edit);
+        onCompleted && onCompleted(admin.article.publish);
       }
     }
   });
 
   return (
     <button
-      className="btn btn-primary"
+      className="btn btn-sm btn-success"
       disabled={mutationLoading}
       onClick={e => {
         e.preventDefault();
-        edit({
+        mutation({
           variables: {
-            id,
-            input: {
-              title,
-              abstract,
-              content
-            }
+            id
           }
         });
       }}
     >
-      {mutationLoading ? <Loading /> : "Save"}
+      {mutationLoading ? <Loading /> : <i className="fa fa-upload"> Publish</i>}
     </button>
   );
 }
