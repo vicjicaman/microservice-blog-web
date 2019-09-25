@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Route, NavLink, Switch, Link } from "react-router-dom";
-import * as ArticleActions from "Actions/articles";
+import * as ArticleAdminActions from "Actions/articles/admin";
+import * as ArticleUI from "UI/articles";
 
-export default ({ history }) => {
+export default ({ history, viewer }) => {
   const [fields, setFields] = useState({
     title: "",
     abstract: "",
-    content: "",
-    status: "draft"
+    content: ""
   });
 
   const handleFieldChange = event => {
@@ -16,6 +16,11 @@ export default ({ history }) => {
       ...fields,
       [event.target.name]: event.target.value
     }));
+  };
+
+  const preview = {
+    authorid: viewer.id,
+    ...fields
   };
 
   return (
@@ -57,28 +62,14 @@ export default ({ history }) => {
                   ></textarea>
                 </div>
 
-                <div className="form-group">
-                  <label htmlFor="status">Status</label>
-                  <select
-                    className="form-control"
-                    name="status"
-                    value={fields.status}
-                    onChange={handleFieldChange}
-                  >
-                    <option value="draft">draft</option>
-                    <option value="hidden">hidden</option>
-                    <option value="active">active</option>
-                  </select>
-                </div>
               </form>
             </div>
             <div className="card-footer">
               <div className="col-12">
-                <ArticleActions.Create
+                <ArticleAdminActions.Create
                   title={fields.title}
                   abstract={fields.abstract}
                   content={fields.content}
-                  status={fields.status}
                   onCompleted={() => history.goBack()}
                 />{" "}
                 <button
@@ -95,23 +86,9 @@ export default ({ history }) => {
           </div>
         </div>
         <div id="preview" className="col-md-6">
-          <Article
-            title={fields.title}
-            abstract={fields.abstract}
-            content={fields.content}
-          />
+          <ArticleUI.Entry article={preview} />
         </div>
       </div>
-    </div>
-  );
-};
-
-const Article = ({ title, abstract, content }) => {
-  return (
-    <div>
-      <h3>{title}</h3>
-      <p className="font-italic">{abstract}</p>
-      <div dangerouslySetInnerHTML={{ __html: content }}></div>
     </div>
   );
 };

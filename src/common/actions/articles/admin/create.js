@@ -3,6 +3,7 @@ import { useMutation } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import { Alert } from "reactstrap";
 import Loading from "UI/loading";
+import * as ArticleAdminFragments from 'Queries/articles/admin/fragments'
 
 const CREATE = gql`
   mutation ArticleCreate($input: ArticleInput!) {
@@ -10,30 +11,33 @@ const CREATE = gql`
       id
       username
       articles {
-        create(input: $input) {
-          id
-          title
-          abstract
-          content
-          authorid
-          created_at
+        admin {
+          create(input: $input) {
+            ...ArticleAdminFragment
+          }
         }
       }
     }
   }
+  ${ArticleAdminFragments.Article}
 `;
 
-export default function({ title, abstract, content, status, onCompleted }) {
+export default function({ title, abstract, content, onCompleted }) {
   const [
     create,
     { loading: mutationLoading, error: mutationError }
   ] = useMutation(CREATE, {
-    onCompleted: ({ viewer: { id, articles } }) => {
+    onCompleted: ({
+      viewer: {
+        id,
+        articles: { admin }
+      }
+    }) => {
       if (id === null) {
         window.location = "/auth";
       }
-      if (articles) {
-        onCompleted && onCompleted(articles.create);
+      if (admin) {
+        onCompleted && onCompleted(admin.create);
       }
     }
   });
@@ -49,8 +53,7 @@ export default function({ title, abstract, content, status, onCompleted }) {
             input: {
               title,
               abstract,
-              content,
-              status
+              content
             }
           }
         });

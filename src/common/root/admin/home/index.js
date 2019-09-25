@@ -1,14 +1,14 @@
 import React from "react";
 import { Route, NavLink, Switch, Link } from "react-router-dom";
 import { Query } from "react-apollo";
-import * as ArticleQueries from "Queries/articles";
-import * as ArticleUI from "UI/articles";
+import * as ArticleQueries from "Queries/articles/admin";
+import * as ArticleAdminUI from "UI/articles/admin";
 
 export default ({ history, viewer: { username } }) => (
   <div>
     <div className="row">
       <div className="col-12">
-        <Link to={"/blog/admin"}>admin</Link>
+        <Link to={"/blog/admin/new"}>New</Link>
       </div>
     </div>
     <div className="row">
@@ -19,15 +19,21 @@ export default ({ history, viewer: { username } }) => (
 
           const {
             viewer: {
-              articles: { list }
+              articles: { admin }
             }
           } = data;
+
+          if (admin === null) {
+            return <span>No access</span>;
+          }
+
+          const { list } = admin;
 
           return (
             <div className="col-12">
               <ul className="list-group list-group-flush">
                 {list.map(article => (
-                  <ArticleUI.Item article={article} />
+                  <ArticleAdminUI.Item article={article} />
                 ))}
               </ul>
             </div>

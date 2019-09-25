@@ -1,11 +1,10 @@
 import React from "react";
 import { Route, NavLink, Switch } from "react-router-dom";
 import Home from "./home";
-import New from "./new";
+import Admin from "./admin";
 import Entry from "./entry";
 
 export default ({ viewer }) => (
-  <div>
     <Switch>
       <Route
         path={"/blog"}
@@ -13,14 +12,12 @@ export default ({ viewer }) => (
         component={props => <Home {...props} viewer={viewer} />}
       />
       <Route
-        path={"/blog/new"}
-        exact={true}
-        component={props => <New {...props} viewer={viewer} />}
+        path={"/blog/admin"}
+        component={props => <Admin {...props} viewer={viewer} />}
       />
       <Route
         path={"/blog/:id"}
         component={props => <Entry {...props} viewer={viewer} />}
       />
     </Switch>
-  </div>
 );
