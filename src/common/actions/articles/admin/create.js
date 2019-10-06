@@ -4,7 +4,7 @@ import { gql } from "apollo-boost";
 import { Alert } from "reactstrap";
 import Loading from "UI/loading";
 import * as ArticleAdminFragments from 'Queries/articles/admin/fragments'
-import * as ArticleQueries from "Queries/articles";
+import * as ArticleAdminQueries from "Queries/articles/admin";
 
 const CREATE = gql`
   mutation ArticleCreate($input: ArticleCreateInput!) {
@@ -28,7 +28,7 @@ export default function({ url, title, abstract, content, onCompleted }) {
     create,
     { loading: mutationLoading, error: mutationError }
   ] = useMutation(CREATE, {
-    refetchQueries: [{ query: ArticleQueries.List }],
+    refetchQueries: [{ query: ArticleAdminQueries.List }],
     onCompleted: ({
       viewer: {
         id,
