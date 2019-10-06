@@ -8,12 +8,12 @@ export const List = gql`
       username
       articles {
         list {
-          ...ArticleFragment
+          ...ArticleListFragment
         }
       }
     }
   }
-  ${ArticleFragments.Article}
+  ${ArticleFragments.ArticleList}
 `;
 
 export const Get = gql`

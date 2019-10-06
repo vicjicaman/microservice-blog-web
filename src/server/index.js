@@ -46,5 +46,5 @@ app.get("/*", (req, res) => {
 });
 
 app.listen(BLOG_INTERNAL_PORT_APP, () => {
-  console.log(`Blog server is listening on port.. ${BLOG_INTERNAL_PORT_APP}`);
+  console.log(`Blog server is listening on port... ${BLOG_INTERNAL_PORT_APP}`);
 });

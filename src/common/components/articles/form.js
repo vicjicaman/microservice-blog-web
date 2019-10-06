@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const State = initial => {
   const [fields, setFields] = useState(initial);
 
-  const handleFieldChange = event => {
+  const handleFieldChange = (event, mode) => {
     event.persist();
     const name = event.target.name;
     const value = event.target.value;
@@ -11,7 +11,7 @@ const State = initial => {
       [name]: value
     };
 
-    if (name === "title") {
+    if (mode === "create" && name === "title") {
       vals.url = value.replace(/\s+/g, "-").replace(/[^a-zA-Z0-9-_]/g, '').toLowerCase();
     }
 
@@ -34,7 +34,7 @@ const Component = ({ mode, fields, setFields, handleFieldChange }) => {
           className="form-control"
           name="title"
           value={fields.title}
-          onChange={handleFieldChange}
+          onChange={e => handleFieldChange(e, mode)}
         />
       </div>
 
@@ -46,7 +46,7 @@ const Component = ({ mode, fields, setFields, handleFieldChange }) => {
             className="form-control"
             name="url"
             value={fields.url}
-            onChange={handleFieldChange}
+            onChange={e => handleFieldChange(e, mode)}
           />
         ) : (
           <span className="text-muted"><b>{' '}{fields.url}</b></span>
@@ -60,7 +60,7 @@ const Component = ({ mode, fields, setFields, handleFieldChange }) => {
           className="form-control"
           name="abstract"
           value={fields.abstract}
-          onChange={handleFieldChange}
+          onChange={e => handleFieldChange(e, mode)}
         />
       </div>
       <div className="form-group">
@@ -70,7 +70,7 @@ const Component = ({ mode, fields, setFields, handleFieldChange }) => {
           name="content"
           rows="15"
           value={fields.content}
-          onChange={handleFieldChange}
+          onChange={e => handleFieldChange(e, mode)}
         ></textarea>
       </div>
     </form>
