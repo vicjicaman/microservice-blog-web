@@ -11,17 +11,26 @@ import * as Logger from "@nebulario/microservice-logger";
 import * as Utils from "@nebulario/microservice-utils";
 
 const ENV_MODE = process.env["ENV_MODE"];
+const ENV_LOG_FOLDER = process.env["ENV_LOG_FOLDER"];
+
 const RESOURCES_BASE_ROUTE = process.env["RESOURCES_BASE_ROUTE"];
 const BLOG_BASE_ROUTE_APP = process.env["BLOG_BASE_ROUTE_APP"];
 const BLOG_INTERNAL_URL_GRAPH = process.env["BLOG_INTERNAL_URL_GRAPH"];
 const BLOG_EXTERNAL_URL_GRAPH = process.env["BLOG_EXTERNAL_URL_GRAPH"];
 const BLOG_INTERNAL_PORT_APP = process.env["BLOG_INTERNAL_PORT_APP"];
 
-const logger = Logger.create({ path: "/var/log/app", env: ENV_MODE });
 const cxt = {
   services: {},
-  logger
+  env: {
+    mode: ENV_MODE,
+    logs: {
+      folder: ENV_LOG_FOLDER
+    }
+  },
+  logger: null
 };
+
+cxt.logger = Logger.create({ path: ENV_LOG_FOLDER, env: ENV_MODE });
 
 (async () => {
   const app = express();
