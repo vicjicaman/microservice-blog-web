@@ -1,4 +1,5 @@
 const path = require("path");
+const { WatchRunPlugin } = require("./webpack.config.common");
 
 module.exports = {
   entry: "./src/web/index.js",
@@ -14,12 +15,14 @@ module.exports = {
       }
     ]
   },
+  plugins: [new WatchRunPlugin("web")],
   resolve: {
     alias: {
       Root: path.resolve(__dirname, "src/common/root"),
       Actions: path.resolve(__dirname, "src/common/actions"),
       UI: path.resolve(__dirname, "src/common/ui"),
       Queries: path.resolve(__dirname, "src/common/queries"),
+      PKG: path.resolve(__dirname, "pkg"),
       Comps: path.resolve(__dirname, "src/common/components")
     },
     modules: [path.resolve(__dirname, "src"), "node_modules"],
