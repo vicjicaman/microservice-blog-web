@@ -9,6 +9,7 @@ export const header = ({ paths: { resources: resourcesPath } }) => {
           <link rel="stylesheet" href="${resourcesPath}/bootstrap/css/bootstrap.min.css"/>
           <link rel="stylesheet" href="${resourcesPath}/font-awesome/css/font-awesome.css"/>
           <link rel="stylesheet" href="${resourcesPath}/react-toastify/dist/ReactToastify.css"/>
+          <link rel="stylesheet" href="${resourcesPath}/prism/prism.css"/>
 
           <title>Repoflow - Blog</title>
         </head>
@@ -43,6 +44,7 @@ export const footer = ({
             </script>
             <script language="javascript" src="${resourcesPath}/jquery/jquery.min.js"></script>
             <script language="javascript" src="${resourcesPath}/bootstrap/js/bootstrap.min.js"></script>
+            <script language="javascript" src="${resourcesPath}/prism/prism.js"></script>
             <script src="${basePath}/app/index.js"></script>
         </body>
     </html>
